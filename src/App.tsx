@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Game from './Game'
+import Score from './Score'
 
-function App() {
+const App: React.FC = () => {
+  const [score, setScore] = useState(0)
+
+  // Logic to update score based on game events
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Score score={score} />
+      <Game onScoreUpdate={setScore} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
