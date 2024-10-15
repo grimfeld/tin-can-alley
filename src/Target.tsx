@@ -59,6 +59,7 @@ export class Target extends Phaser.Physics.Arcade.Sprite {
     this.body?.setSize(this.width, this.height * 0.5)
     this.body?.setOffset(0, 0)
     this.setScale(Phaser.Math.FloatBetween(0.9, 1.1))
+    this.setDepth(2)
   }
 
   setVerticalMovement(duration: number) {

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import Phaser from 'phaser'
 import { DartScene } from './DartScene'
 
-const Game: React.FC<{ onScoreUpdate: (score: number) => void }> = ({ onScoreUpdate }) => {
+const Game: React.FC = ({}) => {
   const gameRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Game: React.FC<{ onScoreUpdate: (score: number) => void }> = ({ onScoreUpd
         default: 'arcade',
         arcade: {
           gravity: { y: 0, x: 0 },
-          debug: true
+          debug: false
         }
       }
     }
@@ -26,7 +26,7 @@ const Game: React.FC<{ onScoreUpdate: (score: number) => void }> = ({ onScoreUpd
     return () => {
       game.destroy(true)
     }
-  }, [onScoreUpdate])
+  }, [])
 
   return <div ref={gameRef} />
 }

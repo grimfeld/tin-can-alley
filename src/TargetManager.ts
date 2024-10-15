@@ -33,6 +33,8 @@ export class TargetManager {
     this.scene = scene
   }
 
+  preload() {}
+
   spawnTarget(
     scene: Phaser.Scene,
     x: number,
@@ -65,9 +67,10 @@ export class TargetManager {
   spawnVertical() {
     const spawn = () => {
       const currentTime = this.scene.time.now
-      const availableColumns = this.columns.filter(
-        (col) => currentTime - col.lastSpawnTime >= this.spawnInterval * 2
-      )
+      const availableColumns = this.columns.filter((col) => {
+        if (col.lastSpawnTime === 0) return true // Handles first spawn
+        else return currentTime - col.lastSpawnTime >= this.spawnInterval * 2
+      })
 
       if (availableColumns.length === 0) return
 
