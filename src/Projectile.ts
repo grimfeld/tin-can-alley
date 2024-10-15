@@ -63,16 +63,21 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(time: number) {
-    if (this.isThrown) {
+    if (this.isThrown && this.active) {
       const elapsedTime = time - this.throwStartTime
-      if (elapsedTime < this.throwDuration) {
-        const progress = elapsedTime / this.throwDuration
-        const newScale = Phaser.Math.Linear(1, 0.5, progress)
-        this.setScale(newScale)
-      } else {
-        this.isThrown = false
-        this.canPopBalloons = false
+      const progress = elapsedTime / this.throwDuration
+
+      const newScale = Phaser.Math.Linear(1, 0.5, progress)
+      this.setScale(newScale)
+
+      const newGravityY = Phaser.Math.Linear(300, 100, progress)
+      this.setGravityY(newGravityY)
+
+      if (elapsedTime >= this.throwDuration) {
         this.destroyProjectile()
+      }
+      if (elapsedTime >= 2000) {
+        this.destroy()
       }
     }
   }
@@ -82,7 +87,7 @@ export class Projectile extends Phaser.Physics.Arcade.Sprite {
     this.scene.input.off('pointermove', this.doDrag, this)
     this.scene.input.off('pointerup', this.endDrag, this)
     this.isDestroyed = true
-    this.destroy()
-    console.log('immobilized')
+    this.setDepth(1)
+    this.canPopBalloons = false
   }
 }

@@ -82,6 +82,8 @@ export class DartScene extends Phaser.Scene {
           this.emitter.explode(16, obj2.x, obj2.y)
           this.soundsManager.playPop()
           ;(obj2 as Target).destroy()
+          ;(obj1 as Projectile).destroyProjectile()
+          ;(obj1 as Projectile).destroy()
         }
       },
       undefined,
